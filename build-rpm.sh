@@ -4,8 +4,8 @@
 #yum -y install ncurses-devel git gcc rpmbuild
 
 KERNEL_VERSION=3.10.10
-wget --no-check-certificate https://www.kernel.org/pub/linux/kernel/v3.x/linux-${KERNEL_VERSION}.tar.xz
-
+test -f linux-${KERNEL_VERSION}.tar.xz || \
+  wget --no-check-certificate https://www.kernel.org/pub/linux/kernel/v3.x/linux-${KERNEL_VERSION}.tar.xz
 
 # get aufs user tools and build tar
 printf "build aufs3-standalone\n"
@@ -24,6 +24,8 @@ rpmbuild -bs --nodeps --define "_sourcedir ." --define "_srcrpmdir ." kernel-doc
 
 build_dir="$(mktemp -d)"
 mkdir -p $build_dir/{SOURCES,RPMS,SRPMS,BUILD,SPECS}
-rpmbuild --rebuild --define "_topdir ${build_dir}" kernel-${KERNEL_VERSION}-1.src.rpm
+
+srcrpm=`ls -1 kernel-*.src.rpm`
+rpmbuild --rebuild --define "_topdir ${build_dir}" $srcrpm
 
 mv $build_dir/RPMS/*.rpm .
