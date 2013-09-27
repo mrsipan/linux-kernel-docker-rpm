@@ -5,7 +5,7 @@
 
 Name: kernel-docker
 Version: %{major_kernelver}.%{minor_kernelver}
-Release: %{pkg_release}.el%{rhel}
+Release: %{pkg_release}
 Epoch: 0
 Summary: Kernel that supports docker
 URL: http://kernel.org
@@ -222,7 +222,7 @@ fi
 
 %files
 %defattr (-, root, root)
-%dir /lib/modules
+#%dir /lib/modules
 /lib/modules/%{KERNEL_RELEASE}
 /boot/vmlinuz-%{KERNEL_RELEASE}
 /boot/System.map-%{KERNEL_RELEASE}
