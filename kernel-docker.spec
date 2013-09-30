@@ -90,8 +90,10 @@ rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT/boot
 %if 0%{?rhel} == 5
 touch $RPM_BUILD_ROOT/boot/initrd-%{KERNEL_RELEASE}.img
-%endif
-%if 0%{?rhel} == 6
+#%endif
+#%if 0%{?rhel} == 6
+# support rh6 and fedora 
+%else
 touch $RPM_BUILD_ROOT/boot/initramfs-%{KERNEL_RELEASE}.img
 %endif
 mkdir -p $RPM_BUILD_ROOT/lib/modules
