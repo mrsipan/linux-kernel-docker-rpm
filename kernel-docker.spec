@@ -183,13 +183,13 @@ ln -s /usr/src/kernels/%{KERNEL_RELEASE} $RPM_BUILD_ROOT/lib/modules/%{KERNEL_RE
 ln -s /usr/src/kernels/%{KERNEL_RELEASE} $RPM_BUILD_ROOT/lib/modules/%{KERNEL_RELEASE}/source
 
 %post
-# Add kernel-xen to the list of packages that allow multiple installs
+# Add kernel-docker to the list of packages that allow multiple installs
 # so we don't nuke working kernels on an upgrade. That would be bad.
 if grep -q installonlypkgs /etc/yum.conf
 then
   echo "Detected 'installonlypkgs' option already in /etc/yum.conf. Not modifying!"
 else
-  sed -i 's/\[main]/[main]\ninstallonlypkgs=kernel kernel-xen kernel-smp kernel-bigmem kernel-enterprise kernel-debug/g' /etc/yum.conf
+  sed -i 's/\[main]/[main]\ninstallonlypkgs=kernel kernel-docker kernel-smp kernel-bigmem kernel-enterprise kernel-debug/g' /etc/yum.conf
   echo "Added 'installonlypkgs' line to /etc/yum.conf!"
 fi
 
@@ -197,8 +197,10 @@ if [ -x /sbin/new-kernel-pkg ]
 then
 %if 0%{?rhel} == 5
   /sbin/new-kernel-pkg --package kernel --mkinitrd --depmod --install %{KERNEL_RELEASE} || exit $?
-%endif
-%if 0%{?rhel} == 6
+#%endif
+# for both rh6 and fedora
+#%if 0%{?rhel} == 6
+%else
   /sbin/new-kernel-pkg --package kernel --mkinitrd --dracut --depmod --install %{KERNEL_RELEASE} || exit $?
 %endif
 fi
@@ -230,8 +232,7 @@ fi
 /boot/symvers-%{KERNEL_RELEASE}.gz
 %if 0%{?rhel} == 5
 /boot/initrd-%{KERNEL_RELEASE}.img
-%endif
-%if 0%{?rhel} == 6
+%else
 /boot/initramfs-%{KERNEL_RELEASE}.img
 %endif
 
@@ -249,6 +250,6 @@ fi
 /usr/src/kernels/%{KERNEL_RELEASE}/.config
 
 %changelog
-* Mon Sep 09 2013 Ben Sanchez <ben@zope.com>
+* Mon Sep 09 2013 Ben Sanchez
 - Initial RPM
 
