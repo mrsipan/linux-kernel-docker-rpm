@@ -1,6 +1,6 @@
 %define major_kernelver 3.10
 %define minor_kernelver 10
-%define pkg_release 1
+%define pkg_release 2
 %define KERNEL_RELEASE %{major_kernelver}.%{minor_kernelver}-%{release}.%{_target_cpu}
 
 Name: kernel-docker
@@ -88,12 +88,7 @@ rm -rf $RPM_BUILD_ROOT
 
 ## Create directory structure.
 mkdir -p $RPM_BUILD_ROOT/boot
-%if 0%{?rhel} == 5
-touch $RPM_BUILD_ROOT/boot/initrd-%{KERNEL_RELEASE}.img
-# support rh6 and fedora 
-%else
 touch $RPM_BUILD_ROOT/boot/initramfs-%{KERNEL_RELEASE}.img
-%endif
 mkdir -p $RPM_BUILD_ROOT/lib/modules
 mkdir -p $RPM_BUILD_ROOT/lib/firmware
 mkdir -p $RPM_BUILD_ROOT/usr
@@ -195,12 +190,7 @@ fi
 
 if [ -x /sbin/new-kernel-pkg ]
 then
-%if 0%{?rhel} == 5
-  /sbin/new-kernel-pkg --package kernel --mkinitrd --depmod --install %{KERNEL_RELEASE} || exit $?
-# for both rh6 and fedora
-%else
   /sbin/new-kernel-pkg --package kernel --mkinitrd --dracut --depmod --install %{KERNEL_RELEASE} || exit $?
-%endif
 fi
 if [ -x /sbin/weak-modules ]
 then
@@ -228,11 +218,7 @@ fi
 /boot/System.map-%{KERNEL_RELEASE}
 /boot/config-%{KERNEL_RELEASE}
 /boot/symvers-%{KERNEL_RELEASE}.gz
-%if 0%{?rhel} == 5
-/boot/initrd-%{KERNEL_RELEASE}.img
-%else
 /boot/initramfs-%{KERNEL_RELEASE}.img
-%endif
 
 %files headers
 %defattr(-,root,root)
@@ -250,4 +236,3 @@ fi
 %changelog
 * Mon Sep 09 2013 Ben Sanchez
 - Initial RPM
-
