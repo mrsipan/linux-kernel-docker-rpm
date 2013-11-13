@@ -1,6 +1,6 @@
 %define major_kernelver 3.10
 %define minor_kernelver 10
-%define pkg_release 2
+%define pkg_release 3
 %define KERNEL_RELEASE %{major_kernelver}.%{minor_kernelver}-%{release}.%{_target_cpu}
 
 Name: kernel-docker
@@ -62,7 +62,7 @@ tar -xvzf %{SOURCE2}
 
 patch -d linux-%{major_kernelver}.%{minor_kernelver} -p1 < aufs3-standalone-3.10/aufs3-kbuild.patch
 patch -d linux-%{major_kernelver}.%{minor_kernelver} -p1 < aufs3-standalone-3.10/aufs3-base.patch
-patch -d linux-%{major_kernelver}.%{minor_kernelver} -p1 < aufs3-standalone-3.10/aufs3-proc_map.patch
+patch -d linux-%{major_kernelver}.%{minor_kernelver} -p1 < aufs3-standalone-3.10/aufs3-mmap.patch
 patch -d linux-%{major_kernelver}.%{minor_kernelver} -p1 < aufs3-standalone-3.10/aufs3-standalone.patch
 
 rm -rf aufs3-standalone-3.10/include/uapi/linux/Kbuild
