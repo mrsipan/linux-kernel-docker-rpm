@@ -52,6 +52,7 @@ Summary: Development package for building kernel modules
 Group: System Environment/Kernel
 Provides: kernel-docker-devel = %{version}-%{release}
 Provides: kernel-devel = %{version}-%{release}
+Provides: kernel-devel-uname-r = %{KERNEL_RELEASE}
 %description devel
 provides kernel headers and makefiles to build modules
 
