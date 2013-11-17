@@ -1,6 +1,6 @@
 %define major_kernelver 3.10
 %define minor_kernelver 10
-%define pkg_release 5
+%define pkg_release 6
 %define KERNEL_RELEASE %{major_kernelver}.%{minor_kernelver}-%{release}.%{_target_cpu}
 
 Name: kernel-docker
