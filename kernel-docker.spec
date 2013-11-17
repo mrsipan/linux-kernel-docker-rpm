@@ -34,8 +34,8 @@ Summary: Headers files used by glibc
 Group: Developement/System
 Obsoletes: glibc-kernheaders
 Provides: glibc-kernheaders = 3.10.10
-Provides: kernel-headers = %{version}-%{release}
 Provides: kernel-docker-headers = %{version}-%{release}
+Provides: kernel-headers = %{version}-%{release}
 %description headers
 linux header files
 
@@ -51,6 +51,7 @@ kernel-firmware includes firmware files
 Summary: Development package for building kernel modules
 Group: System Environment/Kernel
 Provides: kernel-docker-devel = %{version}-%{release}
+Provides: kernel-devel = %{version}-%{release}
 %description devel
 provides kernel headers and makefiles to build modules
 
