@@ -3,7 +3,7 @@
 # needed rpms
 #yum -y install ncurses-devel git gcc rpmbuild
 
-KERNEL_VERSION=3.10.10
+KERNEL_VERSION=3.10.19
 test -f linux-${KERNEL_VERSION}.tar.xz || \
   wget --no-check-certificate https://www.kernel.org/pub/linux/kernel/v3.x/linux-${KERNEL_VERSION}.tar.xz
 

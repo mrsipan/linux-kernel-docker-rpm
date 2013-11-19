@@ -1,6 +1,6 @@
 %define major_kernelver 3.10
-%define minor_kernelver 10
-%define pkg_release 6
+%define minor_kernelver 19
+%define pkg_release 1
 %define KERNEL_RELEASE %{major_kernelver}.%{minor_kernelver}-%{release}.%{_target_cpu}
 
 Name: kernel-docker
@@ -22,9 +22,9 @@ BuildRequires: xz
 %define __spec_install_post /usr/lib/rpm/brp-compress || :
 %define debug_package %{nil}
 
-Source: linux-3.10.10.tar.xz
-Source1: config-docker-3.10.10
-Source2: aufs3-standalone-3.10.tar.gz
+Source: linux-%{version}.tar.xz
+Source1: config-docker-%{version}
+Source2: aufs3-standalone-%{major_kernelver}.tar.gz
 
 %description
 kernel that supports docker
@@ -33,7 +33,7 @@ kernel that supports docker
 Summary: Headers files used by glibc
 Group: Developement/System
 Obsoletes: glibc-kernheaders
-Provides: glibc-kernheaders = 3.10.10
+Provides: glibc-kernheaders = %{version}
 Provides: kernel-docker-headers = %{version}-%{release}
 Provides: kernel-headers = %{version}-%{release}
 %description headers
@@ -57,7 +57,7 @@ Provides: kernel-devel-uname-r = %{KERNEL_RELEASE}
 provides kernel headers and makefiles to build modules
 
 %prep
-%setup -q -n linux-%{major_kernelver}.%{minor_kernelver}
+%setup -q -n linux-%{version}
 # There must be a better way to do this with %patch and %setup
 cd $RPM_BUILD_DIR
 tar -xvzf %{SOURCE2}

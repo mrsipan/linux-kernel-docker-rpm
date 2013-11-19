@@ -1,6 +1,6 @@
 #!/bin/sh -vex
 
-KERNEL_VERSION=3.10.10
+KERNEL_VERSION=3.10.19
 
 TEMPDIR="$(mktemp -d --suffix=build-kernel)"
 HERE="$(pwd)"
