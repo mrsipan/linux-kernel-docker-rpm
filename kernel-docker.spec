@@ -5,7 +5,9 @@
 
 Name: kernel-docker
 Version: %{major_kernelver}.%{minor_kernelver}
-Release: %{pkg_release}
+# 3.10.19 should work with modern xen usertools. it does not need /proc/xen to exist
+# this kernel enables /proc/xen an few other xen options
+Release: %{pkg_release}.xendom0
 Epoch: 0
 Summary: Kernel that supports docker
 URL: http://kernel.org
